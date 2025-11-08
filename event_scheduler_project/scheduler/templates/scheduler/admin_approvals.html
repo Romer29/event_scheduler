@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3">Manage Events</h2>
+
+  <!-- Add Event Button (Admin Only) -->
+  {% if user.is_staff %}
+  <a href="{% url 'scheduler:event_create' %}" class="btn btn-primary mb-3">➕ Add Event</a>
+  {% endif %}
+
+  {% if all_events %}
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Title</th>
+          <th>Submitted By</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in all_events %}
+        <tr>
+          <td>{{ event.title }}</td>
+          <td>{{ event.created_by.username }}</td>
+          <td>{{ event.start_time|date:"Y-m-d H:i" }}</td>
+          <td>{{ event.end_time|date:"Y-m-d H:i" }}</td>
+          <td>{{ event.status }}</td>
+          <td>
+            {% if not event.is_approved %}
+              <a href="{% url 'scheduler:approve_event' event.id %}" class="btn btn-success btn-sm">Approve</a>
+              <a href="{% url 'scheduler:reject_event' event.id %}" class="btn btn-warning btn-sm">Reject</a>
+            {% endif %}
+
+            {% if user.is_staff %}
+              <a href="{% url 'scheduler:event_update' event.id %}" class="btn btn-info btn-sm">Edit</a>
+              <a href="{% url 'scheduler:event_delete' event.id %}" class="btn btn-danger btn-sm">Delete</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No events found.</p>
+  {% endif %}
+</div>
+{% endblock %}

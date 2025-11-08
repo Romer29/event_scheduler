@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center fade-in" style="margin-top: 100px;">
+  <h2 class="mb-4">Choose Your Role</h2>
+  <p class="text-muted mb-5">Select how you want to access the Event Scheduler</p>
+
+  <div class="d-flex justify-content-center gap-4">
+    <!-- Admin Login -->
+    <a href="{% url 'scheduler:login' %}" class="btn btn-danger btn-lg px-5 py-3">
+      👩‍💼 Admin Login
+    </a>
+
+    <!-- User Access -->
+    <a href="{% url 'scheduler:event_list' %}" class="btn btn-primary btn-lg px-5 py-3">
+      👨‍🎓 User Access
+    </a>
+  </div>
+</div>
+{% endblock %}

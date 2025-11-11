@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-
+{% extends "scheduler/student_base.html" %}
 
 {% load static %}
 
@@ -12,7 +11,7 @@
   <p>{{ object.description|linebreaks }}</p>
 
   <div class="mt-4 d-flex justify-content-between">
-    <a href="{% url 'scheduler:event_list' %}" class="btn btn-secondary">Back</a>
+    <a href="{% url 'scheduler:student_event_view' %}" class="btn btn-secondary">Back</a>
   </div>
 </div>
 {% endblock %}

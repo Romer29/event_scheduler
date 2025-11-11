@@ -26,6 +26,11 @@
       <input type="datetime-local" class="form-control" id="end_time" name="end_time" required>
     </div>
 
+        <div class="mb-3">
+      <label for="location" class="form-label">location</label>
+      <input type="form-control" class="form-control" id="location" name="location" required>
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit Event</button>
     <a href="{% url 'scheduler:event_list' %}" class="btn btn-secondary">Cancel</a>
   </form>

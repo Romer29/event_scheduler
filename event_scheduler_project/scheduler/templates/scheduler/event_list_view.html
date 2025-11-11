@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="fw-bold text-primary">Your Events</h2>
+  <form method="get" class="d-flex">
+    <input type="text" name="q" value="{{ request.GET.q }}" class="form-control me-2" placeholder="Search events...">
+    <button class="btn btn-primary">Search</button>
+  </form>
+  <a href="{% url 'scheduler:event_create' %}" class="btn btn-danger ms-2">➕ Add Event</a>
+</div>
+
+
+    <!-- Dark Mode Toggle -->
+    <button id="themeToggle" class="btn btn-outline-dark ms-auto">🌙</button>
+  </div>
+</nav>
+
+<div class="row">
+  {% for event in events %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title text-danger fw-bold">{{ event.title }}</h5>
+          <p class="small text-muted mb-1">📍 {{ event.location|default:"No location" }}</p>
+          <p class="small mb-2">🕒 {{ event.start_time|date:"M d, Y H:i" }}</p>
+          <p class="text-secondary">{{ event.description|truncatewords:15 }}</p>
+        </div>
+        <div class="card-footer bg-white border-0 text-end">
+          <a href="{{ event.get_absolute_url }}" class="btn btn-sm btn-outline-primary">View</a>
+
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="col text-center mt-5">
+      <h5 class="text-muted">No events yet. Add one now!</h5>
+    </div>
+  {% endfor %}
+</div>
+
+{% if user.is_authenticated %}
+  <a href="{% url 'scheduler:add_event' %}" class="btn btn-success mb-3">+ Add Event</a>
+{% endif %}
+
+
+{% endblock %}
+
+<script>
+    // 🌙 Dark Mode Toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        toggleBtn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+    }
+
+    // 🔔 Notification Reminder
+    document.addEventListener("DOMContentLoaded", () => {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+    });
+
+    function sendNotification(title, message) {
+      if (Notification.permission === "granted") {
+        new Notification(title, { 
+          body: message, 
+          icon: "https://cdn-icons-png.flaticon.com/512/2972/2972556.png" 
+        });
+      }
+    }
+
+    // Example: Trigger test reminder after 5 seconds
+    setTimeout(() => {
+      sendNotification("Upcoming Event!", "Don’t forget your meeting at 3 PM today.");
+    }, 5000);
+
+    // ⏱️ Live Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('liveClock').textContent =
+        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
+

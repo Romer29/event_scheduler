@@ -1,0 +1,21 @@
+{% extends "scheduler/student_base.html" %}
+{% block content %}
+<div class="container fade-in" style="max-width: 400px; margin-top: 120px;">
+  <h2 class="text-center mb-4">Student Login</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="student_id" class="form-label">Student ID</label>
+      <input type="text" class="form-control" id="student_id" name="student_id" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+  </form>
+</div>
+{% endblock %}

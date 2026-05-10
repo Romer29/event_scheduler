@@ -2,15 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "event_scheduler_project/manage.py",
+      "src": "event_scheduler_project/myevents_project/wsgi.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "event_scheduler_project/manage.py"
+      "dest": "event_scheduler_project/myevents_project/wsgi.py"
     }
   ],
-  "installCommand": "pip install -r requirements.txt"
+  "installCommand": "pip install -r event_scheduler_project/requirements.txt"
 }

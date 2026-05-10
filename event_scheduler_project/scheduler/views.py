@@ -327,7 +327,7 @@ def reject_event(request, pk):
 def student_event_view(request):
     # Show only approved events + student's own events
     events = Event.objects.filter(
-        models.Q(status='approved') | models.Q(created_by=request.user)
+        Q(status='approved') | Q(created_by=request.user)
     ).order_by('start_time')
     return render(request, 'scheduler/student_event_view.html', {'events': events})
 

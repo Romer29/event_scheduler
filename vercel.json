@@ -12,5 +12,8 @@
       "dest": "event_scheduler_project/myevents_project/wsgi.py"
     }
   ],
-  "installCommand": "pip install -r event_scheduler_project/requirements.txt"
+  "installCommand": "pip install -r event_scheduler_project/requirements.txt",
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "myevents_project.settings"
+  }
 }

@@ -12,5 +12,5 @@
       "dest": "event_scheduler_project/manage.py"
     }
   ],
-  "installCommand": "pip install -r event_scheduler_project/requirements.txt"
+  "installCommand": "pip install -r requirements.txt"
 }

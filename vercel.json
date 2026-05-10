@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "rootDirectory": "event_scheduler_project",
+  "builds": [
+    {
+      "src": "manage.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "manage.py"
+    }
+  ]
+}
